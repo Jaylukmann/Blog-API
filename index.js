@@ -6,7 +6,7 @@ const path = require("path");
 
 const connectDB = require("./database/blogDB");
 const logger = require("./middlewares/logger");
-const errorHandler = require("./middlewares/errorHandler");
+const errorHandler = require("./middlewares/errorhandler");
 const blogRoutes = require("./routes/blogRoutes");
 
 const app = express();
