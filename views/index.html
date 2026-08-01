@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Blog App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Blog Application</h1>
+
+<section class="form">
+    <h2>Create Blog</h2>
+
+    <input id="title" placeholder="Title">
+    <input id="author" placeholder="Author">
+    <input id="category" placeholder="Category">
+
+    <textarea id="content" placeholder="Content"></textarea>
+
+    <input id="tags" placeholder="Tags separated by comma">
+
+    <select id="status">
+        <option value="draft">Draft</option>
+        <option value="published">Published</option>
+    </select>
+
+    <button onclick="createBlog()">Create</button>
+
+</section>
+
+
+<h2>All Blogs</h2>
+
+<div id="blogs"></div>
+
+<button onclick="previousPage()">Previous</button>
+<button onclick="nextPage()">Next</button>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

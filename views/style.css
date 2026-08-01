@@ -1,0 +1,50 @@
+body{
+    font-family: Arial;
+    margin:40px;
+    background:#f4f4f4;
+}
+
+h1{
+    text-align:center;
+}
+
+.form{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:30px;
+}
+
+
+input,textarea,select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+}
+
+
+textarea{
+    height:120px;
+}
+
+
+button{
+    padding:10px 20px;
+    background:#198754;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+
+.blog{
+    background:white;
+    padding:20px;
+    margin:15px 0;
+    border-radius:10px;
+}
+
+
+.delete{
+    background:red;
+}
