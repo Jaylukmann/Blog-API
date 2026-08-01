@@ -4,11 +4,20 @@
   "description": "A RESTful Blog API built with Node.js and Express.js. The API provides endpoints for creating, reading, updating, and deleting blog posts. It includes database integration, authentication, and structured routing to manage blog content efficiently. Tech Stack: - Node.js - Express.js - MongoDB - Mongoose - JWT Authentication - bcrypt",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "joi": "^18.2.3",
+    "mongoose": "^9.8.1"
+  }
 }
-
