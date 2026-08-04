@@ -32,9 +32,11 @@ const newBlog = new BlogModel({
 
 const getAllBlogs = async (req, res,next) => {
   try {
+    const searchQuery = req.query.search || ''; // Get search query from request query parameters
+    const filter = searchQuery ? { title: { $regex: searchQuery, $options: 'i' } } : {}; // Create filter object based on search query
     const{limit = 10,page = 1} = req.query; //Adding Pagination
     const skip = (page - 1)* limit;
-    const blogs = await BlogModel.find({}) // Fetch all blogs from DB 
+    const blogs = await BlogModel.find(filter) // Fetch all blogs from DB 
     .sort({createdAt: -1})       
     .limit(limit)
     .skip(skip)

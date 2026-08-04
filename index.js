@@ -10,8 +10,10 @@ const errorHandler = require("./middlewares/errorhandler");
 const blogRoutes = require("./routes/blogRoutes");
 
 const app = express();
+app.use(express.static(path.join(__dirname, 'views')));//use 
 connectDB();
 
+app.use(cors());
 app.use(express.json());
 app.use("/", blogRoutes);
 app.use(logger);

@@ -1,50 +1,71 @@
 body{
-    font-family: Arial;
-    margin:40px;
-    background:#f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    background: #f4f4f4;
 }
 
-h1{
-    text-align:center;
+h1,
+h2{
+    text-align: center;
 }
 
-.form{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    margin-bottom:30px;
+.form,
+#editForm,
+#blogs{
+    width: 100%;
+    max-width: 800px;
+    margin: 30px auto;
 }
 
-
-input,textarea,select{
-    width:100%;
-    padding:10px;
-    margin:8px 0;
+.form,
+#editForm{
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+input,
+textarea,
+select{
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
 
 textarea{
-    height:120px;
+    height: 120px;
+    resize: vertical;
 }
-
 
 button{
-    padding:10px 20px;
-    background:#198754;
-    color:white;
-    border:none;
-    cursor:pointer;
+    padding: 10px 20px;
+    background: #198754;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
 }
 
+button:hover{
+    opacity: 0.9;
+}
 
 .blog{
-    background:white;
-    padding:20px;
-    margin:15px 0;
-    border-radius:10px;
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-
 .delete{
-    background:red;
+    background: red;
+}
+
+.edit{
+    background: #0d6efd;
 }

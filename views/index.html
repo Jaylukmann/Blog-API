@@ -7,10 +7,11 @@
 
 <body>
 
-<h1>Blog Application</h1>
+<h1>DaBlog</h1>
+<button onclick="showCreateForm()">Create Blog</button>
 
-<section class="form">
-    <h2>Create Blog</h2>
+<section class="form" id="createBlogForm" style="display:none;">
+    <div id="createForm" style="display:none;">
 
     <input id="title" placeholder="Title">
     <input id="author" placeholder="Author">
@@ -24,8 +25,42 @@
         <option value="draft">Draft</option>
         <option value="published">Published</option>
     </select>
+    <input id="views" placeholder="Views">
 
     <button onclick="createBlog()">Create</button>
+</div>
+</section>
+
+<section>
+<h2 id="editBlog" style="display:none;">Edit Blog</h2>
+
+<div id="editForm" style="display:none;">
+
+    <input type="hidden" id="editId">
+
+    <input type="text" id="editTitle" placeholder="Title">
+
+    <textarea id="editContent" placeholder="Content"></textarea>
+
+    <input type="text" id="editAuthor" placeholder="Author">
+
+    <input type="text" id="editCategory" placeholder="Category">
+
+    <input type="text" id="editTags" placeholder="Tags">
+
+    <select id="editStatus">
+        <option value="draft">Draft</option>
+        <option value="published">Published</option>
+    </select>
+
+    <input type="number" id="editViews" placeholder="Views">
+
+    <button onclick="updateBlog()">Save Changes</button>
+    <p id="editMessage"></p>
+
+</div>
+
+
 
 </section>
 
