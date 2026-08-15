@@ -11,11 +11,12 @@ const {
 
 const  validateCreateBlog  = require("../middlewares/validateCreateBlog.js");
  const  validateEditBlog  = require("../middlewares/validateEditBlog.js");
+  const userAuth = require("../middlewares/userAuth.js");
 
-router.post("/createBlog",validateCreateBlog, createBlog);
-router.get("/getAllBlogs", getAllBlogs);
-router.get("/getBlog/:id", getBlog);
-router.put("/editBlog/:id", validateEditBlog, editBlog);
-router.delete("/deleteBlog/:id", deleteBlog);
+router.post("/createBlog",userAuth,validateCreateBlog,createBlog);
+router.get("/getAllBlogs",userAuth, getAllBlogs);
+router.get("/getBlog/:id",userAuth, getBlog);
+router.put("/editBlog/:id",userAuth, validateEditBlog, editBlog);
+router.delete("/deleteBlog/:id",userAuth,deleteBlog);
 
 module.exports = router;

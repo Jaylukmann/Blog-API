@@ -5,18 +5,21 @@ const BlogModel = require('../model/blogModel');
 
 // POST New – Create
 const createBlog = async  (req, res,next) => {
+  console.log("REQ.USER:", req.user);
+console.log("REQ.USER.ID:", req.user?.id);
       try {
       //const newBlog = new BlogModel(req.body); // Create new blog instance
-      const { title, content, author, category, tags, status,views } = req.body;
+      const { title, content, author, category, tags, status } = req.body;
 
 const newBlog = new BlogModel({
   title,
   content,
   author,
+  user: req.user.id,
   category,
   tags,
-  status,
-  views
+  status
+  
 });
   
     await newBlog.save(); // Save to DB
@@ -33,10 +36,13 @@ const newBlog = new BlogModel({
 const getAllBlogs = async (req, res,next) => {
   try {
     const searchQuery = req.query.search || ''; // Get search query from request query parameters
-    const filter = searchQuery ? { title: { $regex: searchQuery, $options: 'i' } } : {}; // Create filter object based on search query
+    const filter = searchQuery
+     ? { title: { $regex: searchQuery, $options: 'i' } }
+      : {}; // Create filter object based on search query
     const{limit = 10,page = 1} = req.query; //Adding Pagination
     const skip = (page - 1)* limit;
-    const blogs = await BlogModel.find(filter) // Fetch all blogs from DB 
+    const blogs = await BlogModel.find(filter)
+    .populate('author', 'name _id email') // Fetch all blogs from DB 
     .sort({createdAt: -1})       
     .limit(limit)
     .skip(skip)
@@ -51,7 +57,10 @@ const getAllBlogs = async (req, res,next) => {
 
 const getBlog = async (req, res,next) => {
   try {
-    const blog = await BlogModel.findById(req.params.id); // Fetch blog by ID from DB   
+    const blog = await BlogModel.findByIdAndUpdate(
+      req.params.id, // Fetch blog by ID from DB 
+    { $inc: { views: 1 } },
+      { new: true });   
     if (!blog) {
       return res.status(404).json({
         message: "Blog not found"
@@ -68,14 +77,31 @@ const getBlog = async (req, res,next) => {
 
 const editBlog = async (req, res,next) => {
   try {   
-    const updatedBlog = await BlogModel.findByIdAndUpdate(req.params.id, 
-      {...req.body}, 
+    const {
+        title,
+        content,
+        category,
+        tags,
+        status
+    } = req.body;
+    
+    const updatedBlog = await BlogModel.findOneAndUpdate(
+      { _id: req.params.id,
+         user: req.user._id },
+
+      { title,
+        content,
+        category,
+        tags,
+        status}, 
+
       { new: true,
         runValidators: true
       }); // Update
+
       if (!updatedBlog) {
         return res.status(404).json({
-          message: "Blog not found",
+          message: "Blog not found or you are not the owner",
         });
       }  
          res.status(200).json({
@@ -91,10 +117,13 @@ catch (error) {
 
 const deleteBlog = async (req, res,next) => {
   try {
-    const deletedBlog = await BlogModel.findByIdAndDelete(req.params.id)
+    const deletedBlog = await BlogModel.findOneAndDelete({
+       _id: req.params.id,
+         user: req.user._id
+        });
     if(!deletedBlog){
       return res.status(404).json({
-          message: "Blog not found",
+          message: "Blog not found or you are not the owner",
         })
          };
 
@@ -108,10 +137,6 @@ const deleteBlog = async (req, res,next) => {
       next(error);
   }
 }
-
-
-
-
 
 
 module.exports = {

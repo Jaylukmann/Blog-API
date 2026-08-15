@@ -1,5 +1,5 @@
-// const API_URL = "http://localhost:5050";
-const API_URL = "https://blog-api-11x3.onrender.com";
+const API_URL = "http://localhost:5050";
+//const API_URL = "https://blog-api-11x3.onrender.com";
 
 let page = 1;
 const limit = 10;

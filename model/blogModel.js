@@ -15,6 +15,11 @@ const blogSchema = new mongoose.Schema({
       type: String,
       trim: true
     },
+     user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "UserModel",
+      required: true,
+    },
 
     category: {
       type: String,
@@ -36,10 +41,8 @@ const blogSchema = new mongoose.Schema({
       type: Number,
       default: 0,
     },
-   createdAt: {
-    type: Date,
-    default: Date.now
-}  
-});
+  },
+   {timestamps: true}  
+);
 
 module.exports = mongoose.model("BlogModel", blogSchema);
