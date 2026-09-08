@@ -20,7 +20,17 @@ app.use(
   })
 );
 app.use(express.json());
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    message: "Blog API is running successfully",
+    status: "OK"
+  });
+});
 app.use("/blogs", blogRoutes);
 app.use("/users", userRoutes);
 app.use(logger);
 app.use(errorHandler);
+
+
+export default app;
