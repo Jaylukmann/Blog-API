@@ -1,53 +1,71 @@
+
 import {
-  registerUser,
-  loginUser
+    registerUser,
+    loginUser
 } from "../services/authService.js";
 
+import uploadToCloudinary from "../utils/uploadToCloudinary.js";
+
 export const registerUserController = async (req, res, next) => {
-  try {
-    const {
-      name,
-      email,
-      password
-    } = req.body;
+    try {
+        const {
+            name,
+            email,
+            password
+        } = req.body;
 
-    const user = await registerUser(
-      name,
-      email,
-      password
-    );
+        let image = null;
 
-    return res.status(201).json({
-      message: "User registered successfully",
-      user
-    });
+        if (req.file) {
 
-  } catch (error) {
-    next(error);
-  }
+       const result = await uploadToCloudinary(
+         req.file.buffer,
+        "blog-api/users",
+        req.file.mimetype
+        );
+        image = result.secure_url;
+        }
+        console.log("FILE:", req.file);
+        
+
+        const user = await registerUser(
+            name,
+            email,
+            password,
+            image
+        );
+
+        return res.status(201).json({
+            message: "User registered successfully",
+            user
+        });
+
+    } catch (error) {
+        next(error);
+    }
 };
 
 export const loginUserController = async (req, res, next) => {
-  try {
-    const {
-      email,
-      password
-    } = req.body;
+    try {
+        const {
+            email,
+            password
+        } = req.body;
 
-    const result = await loginUser(
-      email,
-      password
-    );
+        const result = await loginUser(
+            email,
+            password
+        );
 
-    return res.status(200).json({
-      message: "User logged in successfully",
-      user: result.user,
-      token: result.token
-    });
+        return res.status(200).json({
+            message: "User logged in successfully",
+            user: result.user,
+            token: result.token
+        });
 
-  } catch (error) {
-    next(error);
-  }
+    } catch (error) {
+        next(error);
+    }
 };
 
 

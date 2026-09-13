@@ -12,7 +12,6 @@ import userRoutes from "./routes/userRoutes.js";
 
 
 const app = express();
-// app.use(express.static(path.join(__dirname, 'views')));//use 
 
 app.use(
   cors({

@@ -1,17 +1,53 @@
 import express from "express";
+
+import {
+  createBlogController,
+  getAllBlogsController,
+  getBlogController,
+  editBlogController,
+  deleteBlogController
+} from "../controllers/blogController.js";
+
+import validateCreateBlog from "../validators/validateCreateBlog.js";
+import validateEditBlog from "../validators/validateEditBlog.js";
+
+import userAuth from "../middlewares/userAuth.js";
+import { uploadFile } from "../middlewares/uploadFile.js";
+
 const router = express.Router();
 
+router.post(
+  "/createBlog",
+  userAuth,
+  uploadFile().array("media", 5),
+  validateCreateBlog,
+  createBlogController
+);
 
-import blogControllers from "../controllers/blogControllers.js";
+router.get(
+  "/getAllBlogs",
+  userAuth,
+  getAllBlogsController
+);
 
-import validateCreateBlog  from "../validators/validateCreateBlog.js";
-import validateEditBlog  from "../validators/validateEditBlog.js";
-import userAuth from "../middlewares/userAuth.js";
+router.get(
+  "/getBlog/:id",
+  userAuth,
+  getBlogController
+);
 
-router.post("/createBlog",userAuth,validateCreateBlog,blogControllers.createBlog);
-router.get("/getAllBlogs",userAuth, blogControllers.getAllBlogs);
-router.get("/getBlog/:id",userAuth, blogControllers.getBlog);
-router.put("/editBlog/:id",userAuth, validateEditBlog, blogControllers.editBlog);
-router.delete("/deleteBlog/:id",userAuth,blogControllers.deleteBlog);
+router.put(
+  "/editBlog/:id",
+  userAuth,
+  uploadFile().array("media", 10),
+  validateEditBlog,
+  editBlogController
+);
 
-export default router;    
+router.delete(
+  "/deleteBlog/:id",
+  userAuth,
+  deleteBlogController
+);
+
+export default router;

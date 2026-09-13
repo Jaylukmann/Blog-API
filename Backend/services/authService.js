@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import userModel from "../model/userModel.js";
 import generateToken from "../utils/generateToken.js";
 
-export const registerUser = async (name, email, password) => {
+export const registerUser = async (name, email, password,image) => {
   const existingUser = await userModel.findOne({ email });
 
   if (existingUser) {
@@ -17,7 +17,8 @@ export const registerUser = async (name, email, password) => {
   const user = new userModel({
     name,
     email,
-    password: hashedPassword
+    password: hashedPassword,
+    image:null
   });
 
   await user.save();
@@ -50,7 +51,8 @@ export const loginUser = async (email, password) => {
   const resUser = {
     id: user._id,
     name: user.name,
-    email: user.email
+    email: user.email,
+     image: user.image
   };
 
   return {

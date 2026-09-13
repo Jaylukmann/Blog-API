@@ -42,6 +42,28 @@ const blogSchema = new mongoose.Schema({
       type: Number,
       default: 0,
     },
+    media: [
+  {
+    url: {
+      type: String,
+      required: true
+    },
+
+    publicId: {
+      type: String,
+      required: true
+    },
+
+    resourceType: {
+      type: String,
+      enum: ["image", "video", "raw"],
+      required: true
+    },
+
+    originalName: String,
+    mimeType: String
+  }
+]
   },
    {timestamps: true}  
 );
