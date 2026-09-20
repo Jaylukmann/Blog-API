@@ -40,7 +40,7 @@ export const editBlog = async (blogId, userId, blogData) => {
   const updatedBlog = await BlogModel.findOneAndUpdate(
     {
       _id: blogId,
-      user: userId
+      author: userId
     },
     blogData,
     {
@@ -55,7 +55,7 @@ export const editBlog = async (blogId, userId, blogData) => {
 export const deleteBlog = async (blogId, userId) => {
   const deletedBlog = await BlogModel.findOneAndDelete({
     _id: blogId,
-    user: userId
+    author: userId
   });
 
   return deletedBlog;
